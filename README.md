@@ -14,7 +14,7 @@ git push -> Jenkins detects the commit -> Test -> Build -> Deploy -> Verify
 | --- | --- |
 | **Test** | Builds the Dockerfile's `test` stage, which runs `npm test`. If a test fails, the pipeline stops. |
 | **Build** | Builds the small production image, tagged with the Jenkins build number and `latest`. |
-| **Deploy** | Removes the old container and starts the new one on port 3000. |
+| **Deploy** | Removes the old container and starts the new one on port 8080. |
 | **Verify** | Waits until the container's Docker health check reports `healthy`; otherwise prints logs and fails. |
 
 ## Project structure
@@ -90,7 +90,7 @@ docker run -p 8080:8080 jenkins-demo-app
 | --- | --- |
 | `permission denied ... /var/run/docker.sock` | Keep `user: root` in `docker-compose.yml` (local learning setup) and recreate: `docker compose up -d --force-recreate`. |
 | `docker: not found` in a stage | Rebuild the Jenkins image: `docker compose up -d --build`. |
-| `port is already allocated` on 3000 | Stop whatever uses port 3000, or change `HOST_PORT` in the `Jenkinsfile`. |
+| `port is already allocated` on 8080 | Stop whatever uses port 8080, or change `HOST_PORT` in the `Jenkinsfile`. |
 | Jenkins cannot clone the repo | Make the repo public, or add GitHub credentials in Jenkins and select them in the job. |
 | Docker Desktop on Windows/Mac | Make sure Docker Desktop is running; the socket mount in the compose file works there too. |
 
