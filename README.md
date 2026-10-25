@@ -62,14 +62,14 @@ Open <http://localhost:8080>, paste the password, choose **Install suggested plu
 
 ### 4. Check the result
 - Watch the stages go green in the Jenkins **Stage View**.
-- Open <http://localhost:3000>: you should see "Deployed by Jenkins!" with the build number. `/health` and `/version` also work.
+- Open <http://localhost:8080>: you should see "Deployed by Jenkins!" with the build number. `/health` and `/version` also work.
 
 ### 5. Test the automatic trigger
 The `Jenkinsfile` contains `pollSCM('H/2 * * * *')`, so Jenkins checks GitHub about every 2 minutes (the trigger is registered after the first successful run).
 
 1. Edit the heading in `src/app.js` (and the matching test in `test/app.test.js`).
 2. `git commit -am "Change heading" && git push`
-3. Within ~2 minutes a new build starts on its own. Refresh <http://localhost:3000> to see the new build number.
+3. Within ~2 minutes a new build starts on its own. Refresh <http://localhost:8080> to see the new build number.
 
 To see a failure, break a test on purpose and push: the **Test** stage turns red and nothing is deployed.
 
@@ -78,10 +78,10 @@ To see a failure, break a test on purpose and push: the **Test** stage turns red
 ## Run the app without Jenkins
 ```bash
 npm test
-npm start                              # http://localhost:3000
+npm start                              # http://localhost:8080
 
 docker build --target production -t jenkins-demo-app .
-docker run -p 3000:3000 jenkins-demo-app
+docker run -p 8080:8080 jenkins-demo-app
 ```
 
 ## Troubleshooting
